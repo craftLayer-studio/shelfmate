@@ -2,7 +2,7 @@
 
 ## Context
 
-ShelfMate is CraftLayer's vertical SaaS for kirana stores, general stores, pharmacies and small neighbourhood retail in India. It is built on the shared CraftLayer core (see [core/README.md](../core/README.md)). The wedge is a QR standee that opens the store's catalog and sends the order to the owner's WhatsApp for home delivery. The second hook is the khata (credit ledger) with WhatsApp payment reminders. Billing, inventory, distributor reorder, CRM offers, loyalty and ONDC come after the wedge works.
+ShelfMate is CraftLayer's vertical SaaS for kirana stores, general stores, pharmacies and small neighbourhood retail in India. It is built on the shared CraftLayer core (see [core/README.md](https://github.com/craftLayer-studio/craftlayer-core/blob/main/README.md)). The wedge is a QR standee that opens the store's catalog and sends the order to the owner's WhatsApp for home delivery. The second hook is the khata (credit ledger) with WhatsApp payment reminders. Billing, inventory, distributor reorder, CRM offers, loyalty and ONDC come after the wedge works.
 
 The business goal is fast revenue from a large, price-sensitive base. Every feature must name the metric it moves (acquisition, activation, retention, ARPU, referral).
 
@@ -53,6 +53,6 @@ The business goal is fast revenue from a large, price-sensitive base. Every feat
 
 ## Rules for agents editing these docs
 
-- Follow [CONVENTIONS.md](../CONVENTIONS.md): every number needs a source link and access date or an **(estimate)** label.
+- Follow [CONVENTIONS.md](https://github.com/craftLayer-studio/craftlayer-products/blob/main/CONVENTIONS.md): every number needs a source link and access date or an **(estimate)** label.
 - Reference core modules; do not re-specify them.
 - Keep prices consistent across README, 05 and 06.

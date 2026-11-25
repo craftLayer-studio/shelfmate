@@ -59,4 +59,10 @@ Message wallet top-ups, setup kit and ONDC listing are add-ons. Full detail: [do
 | [docs/05-pricing-and-revenue.md](docs/05-pricing-and-revenue.md) | Tiers, add-ons, unit economics, 12-month scenarios |
 | [docs/06-go-to-market-and-onboarding.md](docs/06-go-to-market-and-onboarding.md) | Channels, sales script, objections, onboarding, retention |
 
-Shared platform modules are described in [core/README.md](../core/README.md).
+Shared platform modules are described in [core/README.md](https://github.com/craftLayer-studio/craftlayer-core/blob/main/README.md).
+
+## Licence
+
+Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE.md). Personal, educational, research and non-profit use is free. **Any commercial use requires a paid licence or written permission from CraftLayer Studio.** See [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md).
+
+Part of the [CraftLayer Products](https://github.com/craftLayer-studio/craftlayer-products) portfolio.
