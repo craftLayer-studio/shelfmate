@@ -4,9 +4,9 @@
   "private": true,
   "description": "QR catalog ordering, khata, GST billing and inventory for kirana stores and small pharmacies. MVP.",
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev --webpack --port 3157",
     "build": "next build --webpack",
-    "start": "next start",
+    "start": "next start --port 3157",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",

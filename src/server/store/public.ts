@@ -4,6 +4,8 @@ import {
   PAYMENT_LABELS,
   buildUpiUri,
   canGiveCredit,
+  formatDateTimeIST,
+  formatTimeIST,
   formatQty,
   isOrderable,
   isValidSlot,
@@ -215,6 +217,18 @@ export async function getOrderPublic(db: Db, token: string) {
     events: events.map((e) => ({ status: e.status, at: e.createdAt.getTime() })),
     upiLink,
     statementToken: customer?.publicToken ?? null,
+    whatsappLink: waMeLink(
+      org.whatsappPhone,
+      orderToStoreText({
+        number: order.number,
+        name: customer?.name ?? "Customer",
+        lines: items.map((i) => ({ name: i.name, qty: formatQty(i.qtyMilli, i.unit) })),
+        total: order.totalPaise,
+        fulfilment: order.fulfilment === "delivery" ? "Home delivery" : "Pickup",
+        slot: `${formatDateTimeIST(order.slotStart.getTime())} to ${formatTimeIST(order.slotEnd.getTime())}`,
+        payment: PAYMENT_LABELS[order.paymentMode],
+      }),
+    ),
   };
 }
 
