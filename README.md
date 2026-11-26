@@ -47,6 +47,58 @@ Message wallet top-ups, setup kit and ONDC listing are add-ons. Full detail: [do
 - Kiranas still hold about 91% of India's grocery market in CY2025 (RedSeer), but a retailer body attributes about 2 lakh store closures to quick commerce (Business Standard, Oct 2024). Sources in [docs/04-market-research.md](docs/04-market-research.md).
 - Quick commerce orders doubled to about ₹64,000 crore in FY25 (CareEdge). The kirana's defence is speed plus relationship plus credit, which ShelfMate puts on WhatsApp.
 
+## Status
+
+**MVP, demo data, simulated messaging and payments.** Live site (planned): https://shelfmate.craftlayer.store. Product support: shelfmate@craftlayer.store.
+
+The app runs end to end with one fictional store, "Annapurna Kirana Stores (Demo)" in Kothrud, Pune. WhatsApp/SMS messages are written to an outbox shown in the app; nothing is sent. Customers pay by UPI intent link (`upi://pay`); confirming the money arrived is manual (staff tap "UPI received") or simulated on the demo statement page.
+
+## How to run
+
+Needs Node 20.9+ and pnpm 11.
+
+```bash
+pnpm install
+cp .env.example .env.local   # optional; defaults work for local dev
+pnpm dev                     # http://localhost:3157
+```
+
+The first request creates a PGlite database in `.data/pglite` and seeds the demo store. `pnpm db:seed` resets it. Set `DATABASE_URL` to use a real Postgres instead. Checks: `pnpm typecheck && pnpm lint && pnpm test && pnpm build`.
+
+## Demo walkthrough
+
+| Step | URL | What to do |
+|---|---|---|
+| 1 | `/` | Landing page; "Try the demo" |
+| 2 | `/demo` | Demo hub with the store QR and sign-in shortcuts |
+| 3 | `/s/demo-annapurna-7Qx2` | Customer QR catalog: add items, pick delivery or pickup and a slot, UPI / cash / khata, tick the optional WhatsApp consents, place the order |
+| 4 | `/o/<token>` | Order tracking with live status, UPI pay button and "Send order on WhatsApp" (wa.me) |
+| 5 | `/login?as=staff` | Counter staff, phone 90000 10002; the OTP is shown on screen (demo) |
+| 6 | `/app/orders` | Live queue: Accept, Mark packed, Out for delivery, Delivered (creates the GST invoice; khata orders post to the ledger) |
+| 7 | `/app/bill` | Quick bill, then print or WhatsApp the GST invoice |
+| 8 | `/app/khata` | Balances, credit limits, add udhaar or payment, WhatsApp reminders, consent log |
+| 9 | `/k/<token>` | Customer's khata statement: pay by UPI, simulate payment (demo), switch messages on or off, STOP |
+| 10 | `/app/stock` | Low-stock and expiry alerts, receive stock, batches, reorder on WhatsApp |
+| 11 | `/app/messages` | Simulated WhatsApp/SMS outbox, including messages skipped for lack of consent |
+| 12 | `/login?as=owner` | Owner, phone 90000 10001: `/app/dashboard`, `/app/offers`, `/app/settings`, `/app/qr` (printable standee) |
+
+## Built vs planned
+
+| Feature | State |
+|---|---|
+| QR catalog, cart, delivery/pickup slot, UPI intent / COD / khata, wa.me order message | Built |
+| Order queue with statuses and customer updates | Built |
+| Khata ledger, credit limits, statement link, WhatsApp reminders with UPI link | Built (reminders are manual "remind" / "remind all", not yet scheduled) |
+| GST invoice (HSN, CGST/SGST, HSN summary, bill of supply for composition, printable) | Built (PDF via browser print) |
+| Customer list with DPDP consent log per purpose, opt-out, STOP | Built |
+| Owner dashboard (sales, udhaar outstanding and recovered, top items, repeat customers, offer results) | Built |
+| Inventory: stock, low-stock alerts, batches with expiry alerts, WhatsApp reorder list | Built (P1) |
+| Offers to opted-in customers, with results | Built (P1, simple) |
+| Phone + OTP sign-in, owner/staff roles | Built (OTP shown on screen in demo) |
+| Onboarding wizard, starter SKU library, CSV/photo import | Planned |
+| Real WhatsApp BSP, payment gateway webhooks, scheduled reminders | Planned (adapters in place) |
+| Loyalty, barcode billing, Indian languages, ONDC, pharmacy H1 register | Planned |
+
 ## Documents
 
 | File | Contents |

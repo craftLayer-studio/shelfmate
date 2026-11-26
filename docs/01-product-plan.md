@@ -36,18 +36,20 @@ Every neighbourhood store keeps its customers when a 10-minute app opens nearby.
 
 ### Phase 1: MVP, sellable in 6–8 weeks (P0)
 
+**Build status (2026-11-26):** built in this repo unless marked otherwise. Onboarding wizard and starter catalog import are not built yet (the demo store is seeded); reminders are sent on demand, not on a schedule; WhatsApp and payments use simulated adapters.
+
 | Feature | Detail | Metric | Core module |
 |---|---|---|---|
-| Onboarding wizard | Shop name, UPI ID, delivery radius, hours; 30-minute target | Activation | Onboarding wizard |
-| Starter catalog | Preloaded library of ~2,000 common kirana SKUs with images and MRP; owner ticks what they stock; photo-to-item and CSV import | Activation | Catalog |
-| QR standee + shutter sticker | Unique store QR; printed kit shipped or handed over | Acquisition (customer side) | QR engine |
-| Web catalog + cart to WhatsApp | Search, categories, loose-item quantity (kg/g), notes, substitutes allowed toggle | Retention, ARPU | Storefront, ordering engine |
-| Order inbox | Accept/edit/packed/out for delivery/delivered; daily order count | Retention | Ordering engine, staff app |
-| Khata ledger | Add credit/payment by voice or tap; per-customer balance; shared statement link | Activation, retention | CRM |
-| Payment reminders | Scheduled utility templates with UPI link (Razorpay/UPI intent); auto-reconcile | Retention (owner sees cash back) | Messaging, payments |
-| Bill / GST invoice | Bill PDF on WhatsApp; GSTIN, HSN, tax split; composition-dealer "bill of supply" mode | Activation | Payments |
-| Customer list + consent | Consent log per number and purpose; one-tap opt-out ("STOP") | Compliance, revenue later | CRM |
-| Owner dashboard | Today's orders, sales, udhaar outstanding, udhaar recovered this month | Retention | Analytics |
+| Onboarding wizard (not built) | Shop name, UPI ID, delivery radius, hours; 30-minute target | Activation | Onboarding wizard |
+| Starter catalog (not built; manual add/edit built) | Preloaded library of ~2,000 common kirana SKUs with images and MRP; owner ticks what they stock; photo-to-item and CSV import | Activation | Catalog |
+| QR standee + shutter sticker (built: printable sheet) | Unique store QR; printed kit shipped or handed over | Acquisition (customer side) | QR engine |
+| Web catalog + cart to WhatsApp (built) | Search, categories, loose-item quantity (kg/g), notes, substitutes allowed toggle | Retention, ARPU | Storefront, ordering engine |
+| Order inbox (built) | Accept/edit/packed/out for delivery/delivered; daily order count | Retention | Ordering engine, staff app |
+| Khata ledger (built, tap entry) | Add credit/payment by voice or tap; per-customer balance; shared statement link | Activation, retention | CRM |
+| Payment reminders (built, on demand) | Scheduled utility templates with UPI link (Razorpay/UPI intent); auto-reconcile | Retention (owner sees cash back) | Messaging, payments |
+| Bill / GST invoice (built) | Bill PDF on WhatsApp; GSTIN, HSN, tax split; composition-dealer "bill of supply" mode | Activation | Payments |
+| Customer list + consent (built) | Consent log per number and purpose; one-tap opt-out ("STOP") | Compliance, revenue later | CRM |
+| Owner dashboard (built) | Today's orders, sales, udhaar outstanding, udhaar recovered this month | Retention | Analytics |
 
 **MVP build estimate:** 2 engineers + 1 designer for 6–8 weeks, reusing core QR, storefront, CRM, payments and messaging (estimate; assumes core modules exist).
 
@@ -55,11 +57,11 @@ Every neighbourhood store keeps its customers when a 10-minute app opens nearby.
 
 | Feature | Metric |
 |---|---|
-| Inventory: stock counts for top 200 SKUs, low-stock alert, expiry date per batch, near-expiry list | ARPU (Pro upsell) |
+| Inventory: stock counts for top 200 SKUs, low-stock alert, expiry date per batch, near-expiry list (built) | ARPU (Pro upsell) |
 | Distributor book: supplier list, one-tap WhatsApp purchase order, pending payables | ARPU, retention |
-| Offers and broadcast: segment by last order date or basket; monthly message budget | Retention, ARPU (wallet) |
+| Offers and broadcast: segment by last order date or basket; monthly message budget (built: segment by 21-day inactivity, no budget yet) | Retention, ARPU (wallet) |
 | Loyalty: points per ₹100, redeem on next order | Retention |
-| Delivery slots and delivery-boy view (address, amount, khata flag) | Retention |
+| Delivery slots and delivery-boy view (address, amount, khata flag) (slots built) | Retention |
 | Barcode scan billing on phone camera | Activation for larger stores |
 | Hindi, Marathi, Tamil, Telugu, Kannada, Bengali UI | Acquisition |
 

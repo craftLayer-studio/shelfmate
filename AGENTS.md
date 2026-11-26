@@ -89,3 +89,52 @@ RULES:
   upgrade --from <old version> --apply   run after a dependency bump
 To remove this block, run `astryx init --remove-agents`, which removes it from the agent files at the project root and in the folder you run it in; from any other file it leaves, delete everything from ASTRYX:START to ASTRYX:END.
 <!-- ASTRYX:END -->
+
+## Code
+
+ShelfMate MVP: Next.js 16 (App Router, webpack), React 19, TypeScript strict, Drizzle ORM on Postgres (PGlite in dev and tests), Astryx design system with the `butter` theme.
+
+### Structure
+
+| Path | What lives there |
+|---|---|
+| `src/domain/` | Pure business rules, no React/Next/IO: money (paise), phone (E.164), quantities (milli units for loose items), cart pricing, GST invoice split, order status machine, delivery slots, khata balance and credit limits, DPDP consent, message texts, stock and expiry alerts, dashboard maths. Tests in `domain.test.ts`. |
+| `src/server/db/` | Drizzle schema, client (`DATABASE_URL` uses `pg`, else PGlite file DB at `.data/pglite`), SQL migrations, demo seed. |
+| `src/server/store/` | Data access and use cases. Every function takes a `Ctx` (org, user, role) or a public token and filters by `org_id`. Integrations are adapters: `messaging.ts` (simulated WhatsApp/SMS, writes `outbox`), `payments.ts` (simulated confirmation). |
+| `src/server/http.ts`, `session.ts`, `ratelimit.ts` | Input validation, signed httpOnly session cookie, in-memory rate limiter. |
+| `src/app/api/` | Thin route handlers: parse, validate, call the store, return JSON. `public/*` (no login, rate-limited), `staff/*`, `owner/*`. |
+| `src/app/s`, `o`, `k` | Customer pages: QR catalog, order tracking, khata statement and message preferences. |
+| `src/app/app/*` | Staff and owner screens (orders, bill, khata, stock, messages, dashboard, offers, settings, QR sheet). |
+| `src/components/` | Client components built from Astryx. |
+
+### Commands
+
+```bash
+pnpm install
+pnpm dev                 # http://localhost:3157, auto-seeds the demo store into an empty DB
+pnpm db:seed             # wipe and reseed the demo store
+pnpm db:generate         # new SQL migration after editing schema.ts (commit it)
+pnpm typecheck && pnpm lint && pnpm test && pnpm build
+pnpm exec astryx doctor --built .next
+```
+
+### Rules
+
+- Money is integer paise; quantities are integer milli units. Never trust client prices or totals; price carts in `priceCart`.
+- Order status changes go through `nextStatuses`/`canTransition` in `src/domain/order.ts`.
+- Every customer message goes through `sendToCustomer`, which checks consent for the purpose (service vs marketing) and logs skipped sends. Never call a messaging adapter directly for customers.
+- Roles are enforced on the server: `requireCtx("owner")` in routes, `requireOwner(ctx)` in the store.
+- Public tokens (QR, order, statement) are random 128-bit values, never sequential ids.
+- UI: Astryx components and tokens only, no raw `div`/`span`, hex or px. Server pages cannot pass render functions to client components; use `DataTable` with pre-formatted rows.
+- Demo data stays fictional and labelled "Demo". No real API keys, no network calls to third parties.
+- Commits: conventional subjects (`feat:`, `fix:`, `test:`, `docs:`, `chore:`). No AI co-author trailers or "Generated with" lines.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
