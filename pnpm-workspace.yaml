@@ -1,0 +1,6 @@
+allowBuilds:
+  "@astryxdesign/core": false
+  "@astryxdesign/cli": false
+  esbuild: false
+  sharp: false
+  unrs-resolver: false
