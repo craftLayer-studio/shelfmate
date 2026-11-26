@@ -1,0 +1,10 @@
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--color-background-body); color: var(--color-text-primary); font-family: var(--font-family-body); }
+
+@media print {
+  [data-print='hide'] { display: none !important; }
+  body { background: var(--color-background-surface); }
+}

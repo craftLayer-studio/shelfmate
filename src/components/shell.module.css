@@ -1,0 +1,9 @@
+/* Sticky cart bar on the customer catalog: Astryx has no sticky footer primitive for a scrolling page. Tokens only. */
+.cartBar {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: var(--color-background-body);
+  border-block-start: var(--border-width) solid var(--color-border);
+  padding: var(--spacing-3) var(--spacing-4);
+}
